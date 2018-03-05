@@ -37,6 +37,11 @@ class Cell {
         self.label = Cell.generateRandomState()
         self.position = pos
         self.snapshot = label
+        print(String(position.x)+" "+String(position.y)+" inited")
+    }
+    
+    deinit {
+        print(String(position.x)+" "+String(position.y)+" deinited")
     }
     
     static func generateRandomState() -> String{
@@ -80,7 +85,8 @@ struct Position{
 }
 
 class Field {
-    var cells : [[Cell]] = []
+    var cells : [[Cell?]] = []
+    var dummyCells : [Cell] = []
     let size : Int = 7
     
     init() {
@@ -94,7 +100,7 @@ class Field {
         
         for cellArr in cells{
             for cell in cellArr{
-                cell.initNeighbours(nbours : getNeighbours(cell.position.x, cell.position.y))
+                cell!.initNeighbours(nbours : getNeighbours(cell!.position.x, cell!.position.y))
             }
         }
     }
@@ -105,9 +111,11 @@ class Field {
             for y2 in y-1...y+1{
                 if(!(x2 == x && y2 == y)){
                     if( x2 >= 0 && x2 <= size && y2 >= 0 && y2 <= size ){
-                        cellsRes.append(cells[x2][y2])
+                        cellsRes.append(cells[x2][y2]!)
                     }else{
-                        cellsRes.append(Cell("A", Position(x : x2, y : y2)))
+                        let dummyCell = Cell("A", Position(x : x2, y : y2))
+                        cellsRes.append(dummyCell)
+                        dummyCells.append(dummyCell)
                     }
                 }
             }
@@ -121,7 +129,7 @@ class Field {
             var horizontalLine = ""
             for column in row{
                 //rowText.append(String(column.countAliveNeighbours()))
-                rowText.append(column.caption+"|")
+                rowText.append(column!.caption+"|")
                 horizontalLine.append("--")
             }
             print(horizontalLine)
@@ -132,16 +140,24 @@ class Field {
     func iterate(){
         for cellArr in cells{
             for cell in cellArr{
-                cell.nextIter()
+                cell!.nextIter()
             }
         }
         for cellArr in cells{
             for cell in cellArr{
-                cell.refresh()
+                cell!.refresh()
                 //print(cell.countNeighbours())
             }
         }
         printField()
+    }
+    
+    func breakDownField(){
+        for cellArr in cells{
+            for var cell in cellArr{
+                cell = nil
+            }
+        }
     }
 }
 
@@ -155,4 +171,5 @@ while(userInput != "q"){
     iterNum = iterNum + 1
     userInput = readLine()
 }
+palya.breakDownField()
 
