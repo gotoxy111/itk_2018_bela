@@ -30,7 +30,10 @@ class cookBookModel{
         }
         
     }
-    func getItem(pos : Int)->singleRecept {
+    func getItem(pos : Int)->singleRecept? {
+        guard pos <= container.count else{
+            return nil
+        }
         return container[pos]
     }
 }

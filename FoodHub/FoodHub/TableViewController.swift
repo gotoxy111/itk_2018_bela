@@ -1,30 +1,17 @@
 //
-//  ReceptListaController.swift
-//  
+//  TableViewController.swift
+//  FoodHub
 //
-//  Created by Student on 2018. 03. 03..
+//  Created by Student on 2018. 03. 11..
+//  Copyright © 2018. Student. All rights reserved.
 //
 
 import UIKit
 
-class CustomCell : UITableViewCell{
-    
-    @IBOutlet weak var foodImage: UIImageView!
-    
-}
+class TableViewController: UITableViewController {
 
-class ReceptListaController: UITableViewController {
-    
-    let cookBook : cookBookModel = cookBookModel(number : 10)
-    let CellIdentifier = "Cell Identifier"
-
-    
     override func viewDidLoad() {
         super.viewDidLoad()
-        title = "Items"
-        
-        // Register Class
-        tableView.register(CustomCell.self, forCellReuseIdentifier: CellIdentifier)
 
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
@@ -42,26 +29,23 @@ class ReceptListaController: UITableViewController {
 
     override func numberOfSections(in tableView: UITableView) -> Int {
         // #warning Incomplete implementation, return the number of sections
-        return 3
+        return 0
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return cookBook.container.count
+        return 0
     }
 
-    
+    /*
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: CellIdentifier, for: indexPath) as! CustomCell
-        //cell.textLabel?.text = cookBook.getItem(pos: indexPath.row)?.name
-        cell.foodImage = UIImageView(image: #imageLiteral(resourceName: "babgulyas"))
-        print(cookBook.getItem(pos: indexPath.row)?.name)
+        let cell = tableView.dequeueReusableCell(withIdentifier: "reuseIdentifier", for: indexPath)
 
         // Configure the cell...
 
         return cell
     }
-    
+    */
 
     /*
     // Override to support conditional editing of the table view.
